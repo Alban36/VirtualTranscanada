@@ -1,0 +1,43 @@
+body {
+    background-color: #CEF6CE;
+}
+
+h1 {
+    color: #088A08;
+    text-align:center;
+}
+
+#maintbl {
+    margin-left:auto;
+    margin-right:auto;
+    border-style:none;
+    width:1000px;
+}
+
+tr, td{
+    border-style:none;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+.carheader{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.blank{
+    width:600px;
+}
+
+.p1{
+    width:200px;
+}
+
+.catheadertitle{
+    font:bold 20px "Times New Roman";
+}
+
+.showhide{
+    font:10px "Times New Roman";
+    color:blue;
+}

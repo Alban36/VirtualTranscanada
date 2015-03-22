@@ -1,0 +1,235 @@
+<html>
+    <head><style>
+    body {
+    background-color:white;
+    background-attachment: fixed;
+    background-attachment: cover;
+    background-repeat:no-repeat;
+    font: 14px verdana, sans-serif;
+}
+
+#title{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:60px;
+    background-color:#CEF6CE;
+    z-index: 7;
+}
+
+#menu{
+    position:absolute;
+    top:60px;
+    left:0px;
+    width:100%;
+    height:30px;
+    background-color:green;
+    -webkit-box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.3);
+    -moz-box-shadow:    0px 5px 10px 0px rgba(50, 50, 50, 0.3);
+    box-shadow:         0px 5px 10px 0px rgba(50, 50, 50, 0.3);
+    z-index: 7;
+}
+
+#menutable{
+    position:relative;
+    top:0px;
+    height:100%;
+    color:white;
+    text-align:center;
+    font: 14px verdana, sans-serif;
+}
+
+#menutable td{
+    height:25px;
+    color:white;
+    border-radius:3px;
+}
+
+#menutable td:hover{
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+#signup{
+    border-radius:10px;
+    background-color:green;
+    position:absolute;
+    
+    top:95px;
+    width:350px;
+    height:350px;
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(50, 50, 50, 0.3);
+    -moz-box-shadow:    0px 0px 10px 2px rgba(50, 50, 50, 0.3);
+    box-shadow:         0px 0px 10px 2px rgba(50, 50, 50, 0.3);
+}
+
+#signup table{
+    text-align:center;
+    color:white;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+#signup input{
+    width:300;
+    height:28;
+    border-radius:3px;
+    border:1px solid black;
+    padding-left: 5px;
+}
+
+#signup td{
+    border:0px solid white;
+    text-align:center;
+}
+
+#signup .signupquestion{
+    text-align:left;
+    font:14px verdana, sans-serif;
+}
+
+#signup button{
+    background-color:white;
+    border:1px solid black;
+    border-radius:3px;
+    color:green;
+    font: 18px verdana, sans-serif;
+    width:80px;
+    height:40px;
+}
+
+#signup p{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.info{
+    background-color:white;
+    border:1px solid green;
+    border-radius:5px;
+}
+
+.information1{
+    width:600px;
+    height:300px;
+}
+
+.information2{
+    width:900px;
+    height:300px;
+}
+
+
+        </style>
+    </head>
+    <body>
+    <script>
+        function ShowHideFunction(id) {
+            if(document.getElementById(id).style.display =='none')
+            {
+                document.getElementById(id).style.display = 'block';
+            }
+            else
+            {
+                document.getElementById(id).style.display ='none';
+            }
+        }
+    </script>
+    <div id="title" ><h2 style="margin-left:15px;color:green;">Virtual TransCanada Challenge</h2></div>
+    <div id="menu">
+    <table id="menutable" style="width:99%;text-align:center;margin-left:auto;margin-right:auto;">
+    <tr>    
+        <td style="width:60px">
+        <p  style="margin-top:3px;margin-bottom:2px;" onclick="ShowHideFunction('signup')">Sign up</p>
+        </td>
+        <td style="width:60px">
+        <p  style="margin-top:3px;margin-bottom:2px;"><a>Help</a></p>
+        </td>
+        <td><p style="margin-top:3px;margin-bottom:2px;"></p></td>
+        <td style="width:80px"><p style="padding-left:15px;margin-top:3px;margin-bottom:2px;"><a>Log in</a></p></td>
+    </tr>
+    </table>
+    </div>
+    <div id="signup">
+    <table>
+        <tr>
+            <th colspan="2"><h2>Sign up</h2></th>
+        </tr>
+        <tr>
+            <td class="signupquestion">
+                Email address
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p></p>
+            </td>
+        </tr>
+        <tr>
+            <td class="signupquestion">
+                Password
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="password">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p></p>
+            </td>
+        </tr>
+        <tr>
+            <td class="signupquestion">
+                Retype password
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <input type="password">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p></p>
+            </td>
+        </tr>
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button>OK</button>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div style="height:90px;"></div>
+    <table style="width:900px;text-align:center;margin-left:auto;margin-right:auto;">
+    <tr>
+        <td>
+        <div class="info information1"></div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <div class="info information2"></div>    
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <div class="info information1"></div>
+        </td>
+    </tr>
+    </table>
+    
+    </body>
+</html>
