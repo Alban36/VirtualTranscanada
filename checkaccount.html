@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <style>
+            body{
+                background-color:#CEF6CE;
+            }
+            
+            #main{
+                margin-left:auto;
+                margin-right:auto;
+                text-align:center;
+                position:relative;
+                top:200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main"><img src="resources/712.GIF"></div>
+        
+        <script>
+            function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        
+        var user = getParameterByName("username");
+        var pwd = getParameterByName("password");
+        
+        var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwY2FeeZrlQdqGekDHvRSNmMP-7m_RBRRsCY1KLX_Y9LiccgKUq/exec";
+            
+        $.getJSON(SCRIPT_URL+"?callback=?",
+        { username : user,
+          password : pwd},
+        function (data){ 
+            if(data.id!="none"){
+                var newURL = "https://script.google.com/macros/s/AKfycbxGVbIoMrNamKUYqfmahnMUY81bZLeqBehiZNlaDL4/dev"+"?spreadsheet="+data.id;
+                window.location.href = newURL;
+            }
+            else
+            {
+                window.location.href = "/loginerror.html";
+            }
+         });
+        </script>
+    </body>
+</html>
