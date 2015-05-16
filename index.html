@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
     <style>
     body {
     background-color:#E6E6E6;
@@ -268,7 +269,7 @@ input:-webkit-autofill {
             }
         }
         
-        function ShowHideFunction(id) {
+        /*function ShowHideFunction(id) {
             if(document.getElementById(id).style.display =='none')
             {
                 document.getElementById(id).style.display = 'block';
@@ -277,7 +278,7 @@ input:-webkit-autofill {
             {
                 document.getElementById(id).style.display ='none';
             }
-        }
+        }*/
         
         function HideFunction(id) {
             document.getElementById(id).style.display ='none';
@@ -382,7 +383,7 @@ input:-webkit-autofill {
         </tr>
         <tr>
             <td>
-                <input type="password" id="loginpassword" onkeypress="enterData(event)" name="password">
+                <input type="password" id="loginpassword" onkeypress="doDomethingOnEnterKey(event,function{document.getElementById('loginform').submit();})" name="password">
             </td>
         </tr>
         <tr>
@@ -391,7 +392,7 @@ input:-webkit-autofill {
             </td>
         </tr>
         <tr>
-            <td><a>Forgot username or password ? click here.</a></td>
+            <td><a onclick="showHideFunction('signup')">Forgot username or password ? click here.</a></td>
         </tr>
         <tr>
             <td colspan="2">
