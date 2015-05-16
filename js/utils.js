@@ -9,6 +9,19 @@ function showHideFunction(div){
 	}
 }
 
+//function to display or not an HTML element.
+//Parameters : id of the html element
+function showHideFunction2(div1, div2){
+	if(document.getElementById(div1).style.display == "none"){
+		document.getElementById(div1).style.display = "block";
+		document.getElementById(div2).style.display = "none";
+	}
+	else{
+		document.getElementById(div1).style.display = "none";
+		document.getElementById(div2).style.display = "block";
+	}
+}
+
 //Description : Callback function to log data pressing "enter" key on the keyboard
 function doSomethingOnEnterKey(event,func){
 	if(event.which == 13 || event.keyCode == 13)
