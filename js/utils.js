@@ -1,36 +1,41 @@
+/*function that display a text in a debug*/ 
+function debug(text){
+document.getElementById("debug").innerHTML = text;
+}
+
+//function that display a text in a div
+function debug2(id,text){
+	document.getElementById(id).innerHTML = text;
+}
+
+
 //function to display or not an HTML element.
 //Parameters : id of the html element
-function showHideFunction(div){
-	if(document.getElementById(div).style.display == "none"){
-		document.getElementById(div).style.display = "block";
+function showHideFunction(id){
+	if(document.getElementById(id).style.display == "none"){
+		document.getElementById(id).style.display = "block";
 	}
 	else{
-		document.getElementById(div).style.display = "none";
+		document.getElementById(id).style.display = "none";
 	}
 }
 
 //function to display or not an HTML element.
 //Parameters : id of the html element
-function showHideFunction2(div1, div2){
-	if(document.getElementById(div1).style.display == "none"){
-		document.getElementById(div1).style.display = "block";
-		document.getElementById(div2).style.display = "none";
-	}
-	else{
-		document.getElementById(div1).style.display = "none";
-		document.getElementById(div2).style.display = "block";
-	}
+function showHideFunction2(id1, id2){
+        document.getElementById(id2).style.display = "none";
+		document.getElementById(id1).style.display = "block";
 }
 
 //Description : Callback function to log data pressing "enter" key on the keyboard
 function doSomethingOnEnterKey(event,func){
 	if(event.which == 13 || event.keyCode == 13)
 	{
-        	func;
+        	func();
 	}
 }
 
-//function that convert a degree latitude into format Deg°Min'Sec" Cardinal
+//function that convert a degree latitude into format DegÂ°Min'Sec" Cardinal
 //Parameter 1 : latitude in degree
 //Return : a formated string in degree, minutes, seconds and orientation.
 function convertLatDMS( dd ){
@@ -42,7 +47,7 @@ function convertLatDMS( dd ){
         return Deg+"°"+Min+"\'"+Sec+"\" "+Cardinal;
 }
 
-//function that convert a degree longitude into format Deg°Min'Sec" Cardinal
+//function that convert a degree longitude into format DegÂ°Min'Sec" Cardinal
 //Parameter 1 : longitude in degree
 //Return : a formated string in degree, minutes, seconds and orientation.
 function convertLonDMS( dd ) {

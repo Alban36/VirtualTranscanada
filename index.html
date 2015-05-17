@@ -284,18 +284,18 @@ input:-webkit-autofill {
             document.getElementById(id).style.display ='none';
         }
         
-        function enterData(event){
+        /*function enterData(event){
           if(event.which == 13 || event.keyCode == 13)
           {
             document.getElementById("loginform").submit();
           }
-        }
+        }*/
         
         function submitSignupForm(){
             
         }
     </script>
-    <div id="title" ><h2 style="margin-left:15px;color:green;">Virtual TransCanada Challenge</h2></div>
+    <div id="title" ><h2 id="debug" style="margin-left:15px;color:green;">Virtual TransCanada Challenge</h2></div>
     <div id="menu">
     </div>
     <div style="margin-left:auto;margin-right:auto;top:35px;width:760px;position:relative;">
@@ -373,7 +373,7 @@ input:-webkit-autofill {
         </tr>
         <tr>
             <td>
-                <input id="loginusername" onkeypress="enterData(event)" name="username">
+                <input id="loginusername" name="username">
             </td>
         </tr>
         <tr>
@@ -383,7 +383,7 @@ input:-webkit-autofill {
         </tr>
         <tr>
             <td>
-                <input type="password" id="loginpassword" onkeypress="doDomethingOnEnterKey(event,function{document.getElementById('loginform').submit();})" name="password">
+                <input type="password" id="loginpassword" name="password">
             </td>
         </tr>
         <tr>
@@ -392,7 +392,7 @@ input:-webkit-autofill {
             </td>
         </tr>
         <tr>
-            <td><a onclick="showHideFunction('signup')">Forgot username or password ? click here.</a></td>
+            <td><a onclick="showHideFunction2('signup','debug')">Forgot username or password ? click here.</a></td>
         </tr>
         <tr>
             <td colspan="2">

@@ -1,19 +1,16 @@
 //Description : Refresh map data
-function RefreshMap(latforurl ,longforurl){
-	var latitude = latforurl;
-	var longitude = lonforurl;
+function RefreshMap(localisation){
+	deleteMarkers(localisation.markers);
 
-	deleteMarkers();
-
-	if(panorama != null)
+	if(localisation.panorama != null)
 	{
-		panorama.setVisible(false);
+		localisation.panorama.setVisible(false);
 	}
 
-	var coord = new google.maps.LatLng(latitude, longitude);
-	map.setCenter(coord);
-	map.setZoom(10);
-	addMarker(coord);
+	var coord = new google.maps.LatLng(localisation.lat, localisation.long);
+	localisation.map.setCenter(coord);
+	localisation.map.setZoom(10);
+	addMarker(localisation.map, coord, localisation.markers);
 }
 
 //Description : callback to change icon when map is enlarged or reduced.
@@ -31,20 +28,20 @@ function enlargeImg(){
 }
 
 //Description : Callback to set map to account current position.
-var mypos = function setToMyPosition() {
-    map.setCenter(new google.maps.LatLng(latforurl, lonforurl));
-    map.setZoom(10);
-  }
+function setToMyPosition(localisation) {
+    localisation.map.setCenter(new google.maps.LatLng(localisation.lat, localisation.long));
+    localisation.map.setZoom(10);
+}
 
 //Description : Callback to set map to streetview of account position.
-var streetpos = function setToMyStreetPosition() {
+function setToMyStreetPosition(localisation) {
   var streetViewMaxDistance = 50;          
 
-  point = new google.maps.LatLng(latforurl, lonforurl);
-  prevpoint = new google.maps.LatLng(prevlatforurl, prevlonforurl);
+  var point = new google.maps.LatLng(localisation.lat, localisation.long);
+  var prevpoint = new google.maps.LatLng(localisation.prevlat, localisation.prevlong);
    
   var streetViewService = new google.maps.StreetViewService();
-  panorama = map.getStreetView();
+  localisation.panorama = localisation.map.getStreetView();
 
   streetViewService.getPanoramaByLocation(point, streetViewMaxDistance, function (streetViewPanoramaData, status) {
     if(status == google.maps.StreetViewStatus.OK){
@@ -53,19 +50,19 @@ var streetpos = function setToMyStreetPosition() {
 
       var heading = google.maps.geometry.spherical.computeHeading(prevpoint,point);            
 
-      panorama.setPosition(point);
-      panorama.setPov({
+      localisation.panorama.setPosition(point);
+      localisation.panorama.setPov({
         heading: heading,
         zoom: 1,
         pitch: 0
       });
-      panorama.setVisible(true);
+      localisation.panorama.setVisible(true);
     }
   });
 }  
 
 //Description : Callback to set map to overview of the transcanada
-var globalpos = function setToGlobal() {
+function setToGlobal(map) {
   map.setCenter(new google.maps.LatLng(49.886083, -90.152921));
   if(largeImg)
   {
@@ -173,70 +170,8 @@ function ControlArrow(controlDiv, map, html, title, func, funcover, funcout) {
   
 }
 
-//Description : function that init dynamic map
-function initialize() {
-  var fillArray = ['red', 'blue', 'yellow', 'green'];
-
-  var mapOptions = {
-    center: new google.maps.LatLng(<?= lat ?>, <?= lon ?>),
-    scaleControl: true,
-    streetViewControl: true,
-    streetViewControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_CENTER
-    },
-    zoomControl: true,
-    zoomControlOptions: {
-        style: google.maps.ZoomControlStyle.DEFAULT,
-        position: google.maps.ControlPosition.RIGHT_CENTER
-    },
-    zoom: 10
-  };
-
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-    mapOptions);
-
-  var layer = new google.maps.visualization.DynamicMapsEngineLayer({
-    layerId: '06673056454046135537-08896501997766553811',
-    map: map,
-    suppressInfoWindows: true,
-    clickable: false
-  });
-  
-  google.maps.event.addDomListener(window, "resize", function() {
-   var center = map.getCenter();
-   google.maps.event.trigger(map, "resize");
-   map.setCenter(center); 
-   });
-   
-   var centerControlDiv = document.createElement('div');
-   var centerControl = new Control(centerControlDiv, map, "My position", "Click to center map on your position", mypos);
-   
-   var centerControl2 = new Control(centerControlDiv, map, "Street view", "Click to view your position on street view", streetpos);
-   
-   var centerControl3 = new Control(centerControlDiv, map, "Overview", "Click to see an overview of the transCanada", globalpos);
-   
-   var centerControlDiv2 = document.createElement('div');
-   var centerControl4 = new ControlArrow(centerControlDiv2, map, "<div id='buttonEnlarge'><img id='arrow_1_gray' style='width:32px;height:32px;' src='http://virtualtranscanada.com/resources/arrow_1.png'><img id='arrow_1_black' style='width:32px;height:32px;display:none;' src='http://virtualtranscanada.com/resources/arrow_1_black.png'><img id='arrow_2_gray' style='width:32px;height:32px;display:none;' src='http://virtualtranscanada.com/resources/arrow_2.png'><img id='arrow_2_black' style='width:32px;height:32px;display:none;' src='http://virtualtranscanada.com/resources/arrow_2_black.png'></div>", "Click to enlarge or reduce the map", enlargemap, BlackArrow, GrayArrow);
-   
-   
-   centerControlDiv.index = 1;
-   map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
-   
-   centerControlDiv2.index = 1;
-   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv2);
-   
-   //Add kml layer on the map
-   var KmlLayer = new google.maps.KmlLayer({
-     url: 'http://virtualtranscanada.com/resources/Transcanada.kml',
-     preserveViewport: true,
-   });
-   KmlLayer.setMap(map);
-   
-   addMarker(new google.maps.LatLng(latforurl, lonforurl));
-}
-
 //Description : Add a marker to the map and push to the array.
-function addMarker(location) {
+function addMarker(map, location, markers) {
   var marker = new google.maps.Marker({
     position: location,
     map: map
@@ -245,32 +180,59 @@ function addMarker(location) {
 }
 
 //Description : Sets the map on all markers in the array.
-function setAllMap(map) {
+function setAllMap(map,markers) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
 }
 
 //Description : Removes the markers from the map, but keeps them in the array.
-function clearMarkers() {
-  setAllMap(null);
+function clearMarkers(markers) {
+  setAllMap(null,markers);
 }
 
 //Description : Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-  clearMarkers();
+function deleteMarkers(markers) {
+  clearMarkers(markers);
   markers = [];
 }
 
 //Description : Callback that will toggle map size
-var enlargemap = function enlargeDiminishMap(){
+function enlargeDiminishMap(){
   $(".dynamicmap").toggleClass("dynamicmapchange");
   enlargeImg();
 }
  
 //Description : Callback function that refresh map on resize.
-function TriggerMapResize() { 
-  document.getElementById("debug").innerHTML = "In TriggerMapResize";
+function TriggerMapResize(map) { 
   google.maps.event.trigger(map, "resize");
 }
 
+//Description : Create text button my position on map
+function addMyPositionButton(localisation,div){
+  var label = "My position";
+  var description = "Click to center map on your position";
+  var centerControl = new Control(div, localisation.map, label, description, function(){setToMyPosition(localisation);});
+}
+
+//Description : Create text button street view on map
+function addStreetViewButton(localisation,div){
+var label = "Street view";
+  var description = "Click to view your position on street view";
+  var centerControl = new Control(div, localisation.map, label, description, function(){setToMyStreetPosition(localisation);});
+}
+
+//Description : Create text button global position on map
+function addGlobalPositionButton(map,div){
+ var label = "Overview";
+  var description = "Click to see an overview of the transCanada";
+  var centerControl = new Control(div, map, label, description, function(){setToGlobal(map)});
+}
+
+//Description : Create control arrow to enlarge and diminish the map
+function addEnlargeOrReduceMapButton(map,div){
+var label = "<div id='buttonEnlarge'><img id='arrow_1_gray' style='width:32px;height:32px;' src='http://virtualtranscanada.com/resources/arrow_1.png'><img id='arrow_1_black' style='width:32px;height:32px;display:none;' src='http://virtualtranscanada.com/resources/arrow_1_black.png'><img id='arrow_2_gray' style='width:32px;height:32px;display:none;' src='http://virtualtranscanada.com/resources/arrow_2.png'><img id='arrow_2_black' style='width:32px;height:32px;display:none;' src='http://virtualtranscanada.com/resources/arrow_2_black.png'></div>";
+  var description = "Click to enlarge or reduce the map";
+  var centerControl = new ControlArrow(div, map, label, description, enlargeDiminishMap, BlackArrow, GrayArrow);
+   
+}
