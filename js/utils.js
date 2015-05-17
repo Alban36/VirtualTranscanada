@@ -84,3 +84,33 @@ function GetTodayDate(){
 function onFailure(error){
   	alert(error.message);
 }
+
+//Description : Transform single dimension array into a 2 dimensions one
+function stringToTable2Dim(string, separator, n){
+  var firstindex = 0;
+  var table = string.split(separator);
+  var table2dim=[];
+  for(var i=0 ; i < n ; i++){
+    table2dim[i]=[table[firstindex],table[firstindex+1],table[firstindex+2],table[firstindex+3]];
+    firstindex+=4;
+  }
+  return table2dim;
+}
+
+//Description : Generate MonthTable
+function generateMonthTable(div, data){
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var htmltable = "<p id='monthheader'>Year 2015</p><table id='monthlogtable'><tr><td></td><td class='monthlogcells tablecyclingheader'><img style='position:relative;top:1px' src='http://virtualtranscanada.com/resources/velo24px.png'></td><td class='monthlogcells tablewalkingheader'><img style='position:relative;top:1px' src='http://virtualtranscanada.com/resources/walk24px.png'></td><td class='monthlogcells tableswimmingheader'><img style='position:relative;top:1px' src='http://virtualtranscanada.com/resources/swimming24px.png'></td><td class='monthlogcells tabletotalheader'>Total</td></tr>"; 
+  for(var i = 0 ; i < 12 ; i++){
+    var formatteddata = "<tr class='monthrow'><td class='monthheader'>"+months[i]+"</td>";
+    for ( var j = 0 ; j < 4 ; j++){
+      formatteddata += "<td class='monthlogcells tablecyclingcontent'>"+data[i][j]+"</td>";
+    }
+    formatteddata += "</tr>";
+    htmltable += formatteddata;
+  }
+  
+  htmltable += "</table>";
+  
+  document.getElementById(div).innerHTML = htmltable;
+}
